@@ -58,3 +58,19 @@ textarea {
 .validation-summary-valid {
     display: none;
 }
+
+
+
+
+
+.button-inactive {
+    padding: 10px 15px;
+    background: #4479BA;
+    color: #FFF;
+}
+
+.button-active {
+    padding: 10px 15px;
+    background: #ff6a00;
+    color: #FFF;
+}
