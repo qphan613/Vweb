@@ -1,0 +1,93 @@
+﻿@model Vweb.Models.Schedule
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Schedule</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HomeTeam)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m => m.HomeTeam, new SelectList(ViewBag.Teams, "ID", "Name"), new { id = "HomeTeamID" })
+ @*           @Html.EditorFor(model => model.HomeTeam)*@
+            @Html.ValidationMessageFor(model => model.HomeTeam)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RoadTeam)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m => m.RoadTeam, new SelectList(ViewBag.Teams, "ID", "Name"), new { id = "RoadTeamID" })
+@*            @Html.EditorFor(model => model.RoadTeam)*@
+            @Html.ValidationMessageFor(model => model.RoadTeam)
+        </div>
+
+
+@*        <div class="editor-label">
+            @Html.LabelFor(model => model.RoadScore)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RoadScore)
+            @Html.ValidationMessageFor(model => model.RoadScore)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HomeScore)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HomeScore)
+            @Html.ValidationMessageFor(model => model.HomeScore)
+        </div>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Location)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GameDateTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.GameDateTime)
+            @Html.ValidationMessageFor(model => model.GameDateTime)
+        </div>
+
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+
+@section head_section{    
+   <script src="@Url.Content("~/Scripts/jquery-ui-1.8.24.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-timepicker-addon.js")" type="text/javascript"></script>   
+   <script type="text/javascript">
+        $(document).ready(function () {
+            $("#GameDateTime").datetimepicker({
+                dateFormat: 'dd-mm-yy', timeFormat: 'hh:mm'
+            });
+        });
+ </script>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

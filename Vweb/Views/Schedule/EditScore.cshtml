@@ -1,0 +1,37 @@
+﻿@model Vweb.Models.TeamSchedule
+
+@using (Ajax.BeginForm("EditScore", "Schedule", new AjaxOptions
+        {
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "POST",
+            OnSuccess = "EditSuccess"
+        }, new { @id = "EditScoreForm" }))
+{
+
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Score Edit for @Model.GameDateTime.ToString("MMMM d, yyyy")</legend>
+        <p id="HomeTeamName">
+        </p>
+
+        @Html.HiddenFor(model => Model.Home_Team.ID)
+
+        @Html.HiddenFor(model => Model.Road_Team.ID)
+        @Html.HiddenFor(model => Model.GameDateTime)
+
+        <div>
+            @Html.TextBoxFor(model => model.HomeScore,new {@class="uk-form-danger"})
+            <input type="text"  placeholder="@Model.Home_Team.Name" class="uk-form-danger">
+        </div>
+        <div></div>
+        <div>
+            <p></p>
+            @Html.TextBoxFor(model => model.RoadScore,new {@class="uk-form-success", placeholder="Address Line 1 - Required"})
+            <input type="text" placeholder="@Model.Road_Team.Name" class="uk-form-success">
+        </div>
+        <p></p>
+        <button class="uk-button">Update Score</button>
+        <p></p>
+    </fieldset>
+        
+}

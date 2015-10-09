@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Vweb.Models.Standing>
+
+@{
+    ViewBag.Title = "Standing";
+}
+
+<div class="uk-width-medium-9-10 uk-container-center">
+    
+        <div class="uk-panel uk-panel-box uk-panel-box-primary uk-margin-bottom uk-margin-top">
+        <h3 class="uk-panel-title"><i class="uk-icon-trophy"></i>    Standing</h3>
+    <table class="uk-table uk-table-hover uk-table-striped">
+        <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Win</th>
+            <th>Lost</th>
+            <th>Submit</th>
+
+        </tr>
+        @{int rank = 0;}
+        @foreach (var team in Model)
+        {
+            rank++;
+            <tr>
+                <td>
+                    <div class="uk-badge uk-badge-notification">@rank</div>
+                   
+                </td>
+                <td>@Html.ActionLink(@team.Name, "DisplayTeam", "Team", new { id = team.TeamRecord.TeamID },  new { style = "text-decoration:none" })
+                </td>
+                <td>
+                    @team.TeamRecord.Win
+                </td>
+                <td>
+                    @team.TeamRecord.Lost
+                </td>
+@*                <td>
+                     <img src="@Url.Content("../Images/ball_green.png")" alt="Test"l; style="display:block"; height="25px"; width="25px" />
+                </td>*@
+
+                @if(team.TeamRecord.TeamID.Equals(4))
+                {
+                <td>
+                    <a href="@Url.Action("DisplaySchedule","Schedule", new { id=team.TeamRecord.TeamID })">
+                        <img title="Update Score for @team.Name" src="@Url.Content("../Images/ball_green.png")", alt="Edit" style="display:block"; height="15px"; width="15px" />
+                    </a>
+                </td>
+                }
+                else
+                {
+                    <td>
+                    <a href="@Url.Action("DisplaySchedule","Schedule", new { id=team.TeamRecord.TeamID })">
+                        <img title="Update Score for @team.Name" src="@Url.Content("../Images/upload.png")", alt="Edit" style="display:block"; height="15px"; width="15px" />
+                    </a>
+                </td>
+                }
+                
+
+            </tr>
+    }
+
+    </table>
+        </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Vweb.Models.TeamSchedule>
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<button class="uk-button" data-uk-modal="{target:'#modal1'}">Open</button>
+   
+    <div id="modal1" class="uk-modal"> 
+           <div class="uk-modal-dialog">
+    <fieldset>
+        <legend>Schedule</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.First().RoadScore)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.First().RoadScore)
+            @Html.ValidationMessageFor(model => model.First().RoadScore)
+        </div>
+
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+               </div>
+           </div>

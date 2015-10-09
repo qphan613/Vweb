@@ -1,0 +1,75 @@
+﻿@model Vweb.Models.TeamSchedule
+
+@using (Ajax.BeginForm("UpdateScore", "Schedule", new AjaxOptions
+        {
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "POST",
+            OnSuccess = "updateSuccess"
+        }, new { @id = "updateCarForm" }))
+{
+
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Score Submission for @Model.GameDateTime.ToString("MMMM d, yyyy")</legend>
+        <p id="HomeTeamName">
+        </p>
+
+        @Html.HiddenFor(model => Model.Home_Team.ID)
+
+        @Html.HiddenFor(model => Model.Road_Team.ID)
+        @Html.HiddenFor(model => Model.GameDateTime)
+
+        <div>
+            @Html.TextBoxFor(model => model.HomeScore,new {@class="uk-form-danger"})
+            <input type="text"  placeholder="@Model.Home_Team.Name" class="uk-form-danger">
+        </div>
+        <div></div>
+        <div>
+            <p></p>
+            @Html.TextBoxFor(model => model.RoadScore,new {@class="uk-form-success", placeholder="Address Line 1 - Required"})
+            <input type="text" placeholder="@Model.Road_Team.Name" class="uk-form-success">
+        </div>
+        <p></p>
+        <button class="uk-button">Submit Score</button>
+        <p></p>
+
+
+
+
+
+
+  <div id="form-div">
+    <form class="form" id="form1">
+      
+      <p class="name">
+        <input name="@Model.Home_Team.Name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="@Model.Home_Team.Name"  id="name" />
+      </p>
+      
+      <p class="email">
+        <input name="@Model.Road_Team.Name" type="text" class="validate[required,custom[email]] feedback-input" id="email" placeholder="@Model.Road_Team.Name" />
+      </p>
+      
+      
+      
+      <div class="submit">
+        <input type="submit" value="SEND" id="button-blue"/>
+        <div class="ease"></div>
+      </div>
+    </form>
+<div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </fieldset>
+        
+}

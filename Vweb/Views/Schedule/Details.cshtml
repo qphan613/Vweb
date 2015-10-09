@@ -1,0 +1,43 @@
+﻿@model Vweb.Models.Schedule
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Schedule</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RoadScore)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RoadScore)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.HomeScore)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HomeScore)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Location)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Location)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.GameDateTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.GameDateTime)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

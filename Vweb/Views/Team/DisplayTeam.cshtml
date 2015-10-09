@@ -1,0 +1,161 @@
+﻿@model Vweb.Models.DisplayTeam
+
+
+
+@{
+    ViewBag.Title = "DisplayTeam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<h4 class="tm-article-subtitle">Example</h4>
+
+
+<h2>Team: @Model.Name</h2>
+
+
+<div class="uk-grid">
+
+<div class="uk-width-3-10">
+
+@foreach (var Player in Model.Players)
+{
+
+    if (Player.Sex.Equals("M"))
+    {
+ <div class="uk-width-8-10">
+        <ul class="uk-comment-list">
+            <li>
+                <article class="uk-comment">
+                    <header class="uk-comment-header">
+                        <img class="uk-comment-avatar" src="../../Images/male.jpg" alt="50x50" data-src="holder.js/50x50/auto" height="50px"; width="50px">
+                        <h4 class="uk-comment-title">@Player.FirstName  @Player.LastName</h4>
+                        <p class="uk-comment-meta">May 2, 2090 at 1:55 pm</p>
+                    </header>
+                </article>
+            </li>
+        </ul>
+    </div>
+    }
+    else
+    {
+        <div class="uk-width-8-10">
+        <ul class="uk-comment-list">
+            <li>
+                <article class="uk-comment">
+                    <header class="uk-comment-header">
+                        <img class="uk-comment-avatar" src="../../Images/female.jpg" alt="50x50" data-src="holder.js/50x50/auto" height="50px"; width="50px">
+                        <h4 class="uk-comment-title">@Player.FirstName  @Player.LastName</h4>
+                        <p class="uk-comment-meta">May 2, 2090 at 1:55 pm</p>
+                    </header>
+                </article>
+            </li>
+        </ul>
+    </div>
+    }
+
+}
+    </div>
+
+<div class="uk-width-7-10">
+
+    
+    <div class="uk-margin" data-uk-margin>
+
+        <div class="uk-button-group">
+
+                                    <button class="uk-button uk-button-primary">Monthly Schedule</button>
+                                    <div data-uk-dropdown="{mode:'click'}">
+                                        
+                                        <a href="#" class="uk-button uk-button-primary"><i class="uk-icon-caret-down"></i></a>
+                                        <div class="uk-dropdown uk-dropdown-small">
+                                            <ul class="uk-nav uk-nav-dropdown">
+
+                                                @foreach (Vweb.Models.SelectMonth month in Vweb.Models.DisplayTeam.Months)
+                                                {
+                                                    if (!String.IsNullOrEmpty(month.Text))
+                                                    {
+                                                        <li>@Html.ActionLink(@month.Text, "DisplayTeam", new { id = Model.ID, Month = month.Value })</li>
+                                                    }
+
+
+                                                }
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+    </div>
+
+
+
+    <div class="uk-panel uk-panel-box uk-panel-box-primary">
+
+        <h3 class="uk-panel-title"><i class="uk-icon-calendar"></i>    Schedule for @Model.ShowMonth</h3>
+        <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
+        <tr>
+            <th>Your Team</th>
+            <th>Opponent</th>
+            <th>Your Score</th>
+            <th>Opponent Score</th>
+            <th>Game Date</th>
+            <th></th>
+
+        </tr>
+        
+        @foreach (var sched in Model.Schedules)
+        {
+            <tr>
+                <td>
+                    <h4>
+                        @Html.ActionLink(@sched.Home_Team.Name, "DisplayTeam", "Team", new { id = @sched.Home_Team.ID }, new { style = "text-decoration:none" })
+                    </h4>
+                </td>
+                <td>
+                    <h4>
+                        @Html.ActionLink(@sched.Road_Team.Name, "DisplayTeam", "Team", new { id = @sched.Road_Team.ID }, new { style = "text-decoration:none" })
+                    </h4>
+                </td>
+                <td>
+                    @if (sched.HomeScore != 0)
+                    {
+                        @sched.HomeScore
+                    }
+                </td>
+                <td>
+                    @if (sched.RoadScore != 0)
+                    {
+                        @sched.RoadScore
+                    }
+                </td>
+                <td>
+                    @sched.GameDateTime.ToString("dddd, MMMM d, yyyy")
+                </td>
+
+                <td>
+                    @if (sched.HomeScore == 0 && sched.RoadScore == 0)
+                    {
+                        
+                        @Html.ActionLink("Submit Score", "UpdateScore", new { HomeTeamID = sched.Home_Team.ID, RoadTeamID = sched.Road_Team.ID, date = sched.GameDateTime }, new { @class = "editLink" }) 
+
+                        <a href="#my-id" data-uk-modal>
+                            <img title="Update Score for @sched.GameDateTime" src="@Url.Content("../../Images/upload.png")", alt="Edit" style="display:block"; height="15px"; width="15px" />
+                        </a>
+                        
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Edit Score", "EditScore", new { HomeTeamID = sched.Home_Team.ID, RoadTeamID = sched.Road_Team.ID, date = sched.GameDateTime }, new { @class = "editScore" }) 
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    </div>
+    </div>
+    </div>

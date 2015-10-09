@@ -1,0 +1,198 @@
+﻿@model IEnumerable<Vweb.Models.TeamSchedule>
+@{
+    ViewBag.Title = "DisplaySchedule";
+}
+
+<div id="commonMessage"></div>
+<div class="ScheduleDropDown">
+<div class="uk-button-group ">
+
+        <button class="uk-button uk-button-primary">Monthly Schedule</button>
+        <div data-uk-dropdown="{mode:'click'}">
+
+            <a href="#" class="uk-button uk-button-primary"><i class="uk-icon-caret-down"></i></a>
+            <div class="uk-dropdown uk-dropdown-small">
+                <ul class="uk-nav uk-nav-dropdown">
+
+                    @foreach (Vweb.Models.SelectMonth month in Vweb.Models.DisplayTeam.Months)
+                    {
+                        if (!String.IsNullOrEmpty(month.Text))
+                        {
+                        <li>@Html.ActionLink(@month.Text, "DisplaySchedule", new { Month = month.Value })</li>
+                        }
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+<h2></h2>
+<div class="ScheduleTable">
+
+    
+    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-margin-bottom uk-margin-top">
+    <h3 class="uk-panel-title"><i class="uk-icon-calendar"></i>Schedules</h3>
+
+    <div class="uk-panel">
+        
+
+        <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
+            <tr>
+                <th>Team</th>
+                <th>Team</th>
+                <th>Score</th>
+                <th>Score</th>
+                <th>Date</th>
+                <th></th>
+
+            </tr>
+
+
+            @foreach (var sched in Model)
+            {
+                <tr>
+                    <td>
+                        <h4>
+                            @Html.ActionLink(@sched.Home_Team.Name, "DisplayTeam", "Team", new { id = @sched.Home_Team.ID }, new { style = "text-decoration:none" })
+                        </h4>
+                    </td>
+                    <td>
+                        <h4>
+                            @Html.ActionLink(@sched.Road_Team.Name, "DisplayTeam", "Team", new { id = @sched.Road_Team.ID }, new { style = "text-decoration:none" })
+                        </h4>
+                    </td>
+                    <td>
+                        @if (sched.HomeScore != 0)
+                        {
+                            @sched.HomeScore
+                        }
+                    </td>
+                    <td>
+                        @if (sched.RoadScore != 0)
+                        {
+                            @sched.RoadScore
+                        }
+                    </td>
+                    <td>
+                        @sched.GameDateTime.ToString("MMMM d, yyyy")
+                    </td>
+
+                    <td>
+                        @if (sched.HomeScore == 0 && sched.RoadScore == 0)
+                        {
+                        
+                            @Html.ActionLink("Submit Score", "UpdateScore", new { HomeTeamID = sched.Home_Team.ID, RoadTeamID = sched.Road_Team.ID, date = sched.GameDateTime }, new { @class = "editLink QQ" }) 
+                            @* 
+                            <a href="#my-id" data-uk-modal>
+                                <img title="Update Score for @sched.GameDateTime" src="@Url.Content("../../Images/upload.png")", alt="Edit" style="display:block"; height="15px"; width="15px" />
+                           </a>*@
+                        
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Edit Score", "EditScore", new { HomeTeamID = sched.Home_Team.ID, RoadTeamID = sched.Road_Team.ID, date = sched.GameDateTime }, new { @class = "editScore QQ" }) 
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+        </div>
+</div>
+<div id="UpdateScoreDialog" title="Update Car"></div>
+<div id="EditScoreDialog" title="Update Car"></div>
+
+<script type="text/javascript">
+    var linkObj;
+    $(function () {
+        $(".editLink").button();
+        $('#UpdateScoreDialog').dialog({
+            autoOpen: false,
+            width: 800,
+            resizable: false,
+            modal: true,
+            buttons: {
+                "Update": function () {
+                    $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
+                    $("#updateCarForm").submit();
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $(".editLink").click(function () {
+            //change the title of the dialog
+            linkObj = $(this);
+            var dialogDiv = $('#UpdateScoreDialog');
+            var viewUrl = linkObj.attr('href');
+            $.get(viewUrl, function (data) {
+                dialogDiv.html(data);
+                //validation
+                var $form = $("#updateCarForm");
+                // Unbind existing validation
+                $form.unbind();
+                $form.data("validator", null);
+                // Check document for changes
+                $.validator.unobtrusive.parse(document);
+                // Re add validation with changes
+                $form.validate($form.data("unobtrusiveValidation").options);
+                //open dialog
+                dialogDiv.dialog('open');
+            });
+            return false;
+        });
+
+    });
+
+</script>
+
+
+<script type="text/javascript">
+    var linkObj;
+    $(function () {
+        $(".editScore").button();
+        $('#EditScoreDialog').dialog({
+            autoOpen: false,
+            width: 400,
+            resizable: false,
+            modal: true,
+            buttons: {
+                "Update": function () {
+                    $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
+                    $("#EditScoreForm").submit();
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $(".editScore").click(function () {
+            //change the title of the dialog
+            linkObj = $(this);
+            var dialogDiv = $('#EditScoreDialog');
+            var viewUrl = linkObj.attr('href');
+            $.get(viewUrl, function (data) {
+                dialogDiv.html(data);
+                //validation
+                var $form = $("#EditScoreForm");
+                // Unbind existing validation
+                $form.unbind();
+                $form.data("validator", null);
+                // Check document for changes
+                $.validator.unobtrusive.parse(document);
+                // Re add validation with changes
+                //  $form.validate($form.data("unobtrusiveValidation").options);
+                //open dialog
+                dialogDiv.dialog('open');
+            });
+            return false;
+        });
+
+    });
+
+</script>

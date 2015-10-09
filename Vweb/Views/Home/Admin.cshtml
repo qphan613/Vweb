@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Admin</h2>
+<div>
+    @Html.ActionLink("Manage Team", "Index", "Team")
+</div>
+<div>
+    @Html.ActionLink("Manage Players", "Index","Player")
+</div>
+<div>
+    @Html.ActionLink("Manage Schedules", "Index","Schedule")
+</div>

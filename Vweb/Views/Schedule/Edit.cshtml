@@ -1,0 +1,63 @@
+﻿@model Vweb.Models.Schedule
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Schedule</legend>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HomeTeam)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m => m.HomeTeam, new SelectList(ViewBag.Teams, "ID", "Name"), new { id = "HomeTeamID" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RoadTeam)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m => m.RoadTeam, new SelectList(ViewBag.Teams, "ID", "Name"), new { id = "RoadTeamID" })
+        </div>
+        
+        @Html.HiddenFor(model => model.HomeScore)
+
+        @Html.HiddenFor(model => model.RoadScore)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Location)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GameDateTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.GameDateTime)
+            @Html.ValidationMessageFor(model => model.GameDateTime)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
