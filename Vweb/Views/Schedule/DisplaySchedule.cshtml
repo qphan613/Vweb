@@ -1,210 +1,230 @@
 ﻿@model IEnumerable<Vweb.Models.TeamSchedule>
-@{
-    ViewBag.Title = "DisplaySchedule";
-}
+    @{
+        ViewBag.Title = "DisplaySchedule";
+    }
 
-<div id="commonMessage"></div>
-<div class="ScheduleDropDown">
-<div class="uk-button-group ">
+    <div id="commonMessage"></div>
+    <div class="ScheduleDropDown">
+        <div class="uk-button-group ">
 
-        <button class="uk-button uk-button-primary">Monthly Schedule</button>
-        <div data-uk-dropdown="{mode:'click'}">
+            <button class="uk-button uk-button-primary">Monthly Schedule</button>
+            <div data-uk-dropdown="{mode:'click'}">
 
-            <a href="#" class="uk-button uk-button-primary"><i class="uk-icon-caret-down"></i></a>
-            <div class="uk-dropdown uk-dropdown-small">
-                <ul class="uk-nav uk-nav-dropdown">
+                <a href="#" class="uk-button uk-button-primary"><i class="uk-icon-caret-down"></i></a>
+                <div class="uk-dropdown uk-dropdown-small">
+                    <ul class="uk-nav uk-nav-dropdown">
 
-                    <li>@Html.ActionLink("All", "DisplaySchedule", new { Month = "0" })</li>
+                        <li>@Html.ActionLink("All", "DisplaySchedule", new { Month = "0" })</li>
 
-                    @foreach (Vweb.Models.SelectMonth month in Vweb.Models.DisplayTeam.Months)
+                        @foreach (Vweb.Models.SelectMonth month in Vweb.Models.DisplayTeam.Months)
                     {
                         if (!String.IsNullOrEmpty(month.Text))
                         {
-                        <li>@Html.ActionLink(@month.Text, "DisplaySchedule", new { Month = month.Value })</li>
+                    <li>@Html.ActionLink(@month.Text, "DisplaySchedule", new { Month = month.Value })</li>
                         }
                     }
 
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-<h2></h2>
-<div class="ScheduleTable">
+    <h2></h2>
+    <div class="ScheduleTable">
 
-    
-    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-margin-bottom uk-margin-top">
-    <h3 class="uk-panel-title"><i class="uk-icon-calendar"></i>Schedules</h3>
 
-    <div class="uk-panel">
-        
+        <div class="uk-panel uk-panel-box uk-panel-box-primary uk-margin-bottom uk-margin-top">
+            <h3 class="uk-panel-title"><i class="uk-icon-calendar"></i>Schedules</h3>
+
+            <div class="uk-panel">
 
 
 
-        <table id="data" class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-            <thead>
-                <tr>
-                    <th>Team</th>
-                    <th>Team</th>
-                    <th>Score</th>
-                    <th>Score</th>
-                    <th>Date</th>
-                    <th></th>
 
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var sched in Model)
+                <table id="data" class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Team</th>
+                            <th>Team</th>
+                            <th>Score</th>
+                            <th>Score</th>
+                            <th>Date</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var sched in Model)
             {
-                    <tr>
-                        <td>
-                            <h4>
-                                @Html.ActionLink(@sched.Home_Team.Name, "DisplayTeam", "Team", new { id = @sched.Home_Team.ID }, new { style = "text-decoration:none" })
-                            </h4>
-                        </td>
-                        <td>
-                            <h4>
-                                @Html.ActionLink(@sched.Road_Team.Name, "DisplayTeam", "Team", new { id = @sched.Road_Team.ID }, new { style = "text-decoration:none" })
-                            </h4>
-                        </td>
-                        <td>
-                            @if (sched.HomeScore != 0)
-                            {
-                                @sched.HomeScore
-                            }
-                        </td>
-                        <td>
-                            @if (sched.RoadScore != 0)
-                            {
-                                @sched.RoadScore
-                            }
-                        </td>
-                        <td>
-                            @sched.GameDateTime.ToString("MMMM d, yyyy")
-                        </td>
+                            <tr>
+                                <td>
+                                
+                                        @Html.ActionLink(@sched.Home_Team.Name, "DisplayTeam", "Team", new { id = @sched.Home_Team.ID }, new { style = "text-decoration:none" })
+                                 
+                                </td>
+                                <td>
+                                
+                                        @Html.ActionLink(@sched.Road_Team.Name, "DisplayTeam", "Team", new { id = @sched.Road_Team.ID }, new { style = "text-decoration:none" })
+                                
+                                </td>
+                                <td>
+                                    @if (sched.HomeScore != 0)
+                                    {
+                                        @sched.HomeScore
+                                    }
+                                </td>
+                                <td>
+                                    @if (sched.RoadScore != 0)
+                                    {
+                                        @sched.RoadScore
+                                    }
+                                </td>
+                                <td>
+                                    @sched.GameDateTime.ToString("MMMM d, yyyy")
+                                </td>
 
-                        <td>
-                            @if (sched.HomeScore == 0 && sched.RoadScore == 0)
-                            {
+                                <td>
+                                    @if (sched.HomeScore == 0 && sched.RoadScore == 0)
+                                    {
 
-                                @Html.ActionLink("Submit Score", "UpdateScore", new { HomeTeamID = sched.Home_Team.ID, RoadTeamID = sched.Road_Team.ID, date = sched.GameDateTime }, new { @class = "editLink QQ" })
-                                @*
-                             <a href="#my-id" data-uk-modal>
-                                 <img title="Update Score for @sched.GameDateTime" src="@Url.Content("../../Images/upload.png")", alt="Edit" style="display:block"; height="15px"; width="15px" />
-                            </a>*@
+                                        @Html.ActionLink("Submit Score", "UpdateScore", new { HomeTeamID = sched.Home_Team.ID, RoadTeamID = sched.Road_Team.ID, date = sched.GameDateTime }, new { @class = "editLink btn" })
 
-                            }
-                            else
-                            {
-                                @Html.ActionLink("Edit Score", "EditScore", new { HomeTeamID = sched.Home_Team.ID, RoadTeamID = sched.Road_Team.ID, date = sched.GameDateTime }, new { @class = "editScore QQ" })
-                            }
-                        </td>
-                    </tr>
-                }
-            </tbody>
-</table>
+
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Edit Score", "EditScore", new { HomeTeamID = sched.Home_Team.ID, RoadTeamID = sched.Road_Team.ID, date = sched.GameDateTime }, new { @class = "editScore btn" })
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
 
 
-               
 
-    </div>
+
+            </div>
 
         </div>
-</div>
-<div id="UpdateScoreDialog" title="Update Car"></div>
-<div id="EditScoreDialog" title="Update Car"></div>
+    </div>
+    <div id="UpdateScoreDialog" title="Update Score"></div>
+    <div id="EditScoreDialog" title="Edit Score"></div>
 
-<script type="text/javascript">
-    var linkObj;
-    $(function () {
-        $(".editLink").button();
-        $('#UpdateScoreDialog').dialog({
-            autoOpen: false,
-            width: 800,
-            resizable: false,
-            modal: true,
-            buttons: {
-                "Update": function () {
-                    $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
-                    $("#updateCarForm").submit();
+
+
+
+
+
+
+    <script type="text/javascript">
+        var linkObj;
+        $(function () {
+            $(".editLink").button();
+            $('#UpdateScoreDialog').dialog({
+                autoOpen: false,
+                show: {
+                    effect: "blind",
+                    duration: 1000
                 },
-                "Cancel": function () {
-                    $(this).dialog("close");
-                }
-            }
-        });
-
-        $(".editLink").click(function () {
-            //change the title of the dialog
-            linkObj = $(this);
-            var dialogDiv = $('#UpdateScoreDialog');
-            var viewUrl = linkObj.attr('href');
-            $.get(viewUrl, function (data) {
-                dialogDiv.html(data);
-                //validation
-                var $form = $("#updateCarForm");
-                // Unbind existing validation
-                $form.unbind();
-                $form.data("validator", null);
-                // Check document for changes
-                $.validator.unobtrusive.parse(document);
-                // Re add validation with changes
-                $form.validate($form.data("unobtrusiveValidation").options);
-                //open dialog
-                dialogDiv.dialog('open');
-            });
-            return false;
-        });
-
-    });
-
-</script>
-
-
-<script type="text/javascript">
-    var linkObj;
-    $(function () {
-        $(".editScore").button();
-        $('#EditScoreDialog').dialog({
-            autoOpen: false,
-            width: 400,
-            resizable: false,
-            modal: true,
-            buttons: {
-                "Update": function () {
-                    $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
-                    $("#EditScoreForm").submit();
+                hide: {
+                    effect: "explode",
+                    duration: 1000
                 },
-                "Cancel": function () {
-                    $(this).dialog("close");
-                }
-            }
-        });
-
-        $(".editScore").click(function () {
-            //change the title of the dialog
-            linkObj = $(this);
-            var dialogDiv = $('#EditScoreDialog');
-            var viewUrl = linkObj.attr('href');
-            $.get(viewUrl, function (data) {
-                dialogDiv.html(data);
-                //validation
-                var $form = $("#EditScoreForm");
-                // Unbind existing validation
-                $form.unbind();
-                $form.data("validator", null);
-                // Check document for changes
-                $.validator.unobtrusive.parse(document);
-                // Re add validation with changes
-                //  $form.validate($form.data("unobtrusiveValidation").options);
-                //open dialog
-                dialogDiv.dialog('open');
+                width: 400,
+                resizable: false,
+                modal: true,
+                //buttons: {
+                //    "Update": function () {
+                //        $("#update-message").html(''); //make sure there is nothing on the message before we continue
+                //        $("#updateScoreForm").submit();
+                //    },
+                //    "Cancel": function () {
+                //        $(this).dialog("close");
+                //    }
+                //}
             });
-            return false;
+
+            $(".editLink").click(function () {
+                //change the title of the dialog
+                linkObj = $(this);
+                var dialogDiv = $('#UpdateScoreDialog');
+                var viewUrl = linkObj.attr('href');
+                $.get(viewUrl, function (data) {
+                    dialogDiv.html(data);
+                    //validation
+                    var $form = $("#updateScoreForm");
+                    // Unbind existing validation
+                    $form.unbind();
+                    $form.data("validator", null);
+                    // Check document for changes
+                    $.validator.unobtrusive.parse(document);
+                    // Re add validation with changes
+                    $form.validate($form.data("unobtrusiveValidation").options);
+                    //open dialog
+                    dialogDiv.dialog('open');
+                });
+                return false;
+            });
+
         });
 
-    });
+    </script>
+
+
+    <script type="text/javascript">
+        var linkObj;
+        $(function () {
+            $(".editScore").button();
+            $('#EditScoreDialog').dialog({
+                autoOpen: false,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                },
+                width: 400,
+                resizable: false,
+                modal: true,
+                //buttons: {
+                //    "Update": function () {
+                //        $("#update-message").html(''); //make sure there is nothing on the message before we continue
+                //        $("#EditScoreForm").submit();
+                //        $(this).dialog("close");
+                //    },
+                //    "Cancel": function () {
+                //        $(this).dialog("close");
+                //    }
+                //}
+            });
+
+            $(".editScore").click(function () {
+                //change the title of the dialog
+                linkObj = $(this);
+                var dialogDiv = $('#EditScoreDialog');
+                var viewUrl = linkObj.attr('href');
+                $.get(viewUrl, function (data) {
+                    dialogDiv.html(data);
+                    //validation
+                    var $form = $("#EditScoreForm");
+                    // Unbind existing validation
+                    $form.unbind();
+                    $form.data("validator", null);
+                    // Check document for changes
+                    $.validator.unobtrusive.parse(document);
+                    // Re add validation with changes
+                    //  $form.validate($form.data("unobtrusiveValidation").options);
+                    //open dialog
+                    dialogDiv.dialog('open');
+                });
+                return false;
+            });
+
+        });
 
 
 
@@ -215,11 +235,11 @@
 
 
 
-</script>
+    </script>
 
-                      <script>
+    <script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-                      <script>
+    <script>
         $(document).ready(function(){
             $('#data').after('<div id="nav"></div>');
             var rowsShown = 10;
@@ -228,7 +248,7 @@
             for(i = 0;i < numPages;i++) {
                 var pageNum = i + 1;
                 $('#nav').append('<a href="#" rel="'+i+'">'+pageNum+'</a> ');
-                
+
 
                 $('#nav a').bind('click', function(){
 
@@ -256,6 +276,5 @@
                         css('display','table-row').animate({opacity:1}, 300);
             });
         });
-                      </script>
     </script>
-
+    </script>

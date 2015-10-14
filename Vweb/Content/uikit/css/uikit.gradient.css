@@ -1672,14 +1672,14 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
    Component: Navbar
  ========================================================================== */
 .uk-navbar {
-  background: #f7f7f7;
-  color: #444444;
+  background: #0077dd;
+  color: #0077dd;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom-color: rgba(0, 0, 0, 0.3);
   border-radius: 4px;
   background-origin: border-box;
-  background-image: -webkit-linear-gradient(top, #ffffff, #eeeeee);
-  background-image: linear-gradient(to bottom, #ffffff, #eeeeee);
+  background-image: -webkit-linear-gradient(top, #1b3155, #33408d);
+  background-image: linear-gradient(to bottom, #1b3155, #33408d);
 }
 /*
  * Micro clearfix
@@ -2605,6 +2605,10 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   width: 100%;
   /* 3 */
   margin-bottom: 15px;
+
+  	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	font-size: 14px;
+	color: #777777;
 }
 /*
  * Add margin if adjacent element
@@ -2624,8 +2628,10 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   text-align: left;
 }
 .uk-table td {
-  vertical-align: top;
+  vertical-align:central;
 }
+
+
 .uk-table thead th {
   vertical-align: bottom;
 }
@@ -2650,7 +2656,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 /* Modifier: `uk-table-striped`
  ========================================================================== */
 .uk-table-striped tbody tr:nth-of-type(odd) {
-  background: #fafafa;
+  background: #dce2e5;
 }
 /* Modifier: `uk-table-condensed`
  ========================================================================== */
@@ -2660,7 +2666,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 /* Modifier: `uk-table-hover`
  ========================================================================== */
 .uk-table-hover tbody tr:hover {
-  background: #f0f0f0;
+  background: #a5d3fb;
 }
 /* ========================================================================
    Component: Form

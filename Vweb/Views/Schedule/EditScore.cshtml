@@ -20,17 +20,18 @@
         @Html.HiddenFor(model => Model.GameDateTime)
 
         <div>
-            @Html.TextBoxFor(model => model.HomeScore,new {@class="uk-form-danger"})
-            <input type="text"  placeholder="@Model.Home_Team.Name" class="uk-form-danger">
+            <label class="ScoreSubmitLabel">@Model.Home_Team.Name</label>
+            @Html.TextBoxFor(model => model.HomeScore,new {@class= "ScoreUpdateTextBox ItemPositionRight" })
         </div>
         <div></div>
         <div>
             <p></p>
-            @Html.TextBoxFor(model => model.RoadScore,new {@class="uk-form-success", placeholder="Address Line 1 - Required"})
-            <input type="text" placeholder="@Model.Road_Team.Name" class="uk-form-success">
+            <label class="ScoreSubmitLabel">@Model.Road_Team.Name</label>
+            @Html.TextBoxFor(model => model.RoadScore,new {@class= "ScoreUpdateTextBox ItemPositionRight" })
         </div>
         <p></p>
-        <button class="uk-button">Update Score</button>
+        <button class="uk-button-mini ItemPositionRight">Update Score</button>
+        <button class="uk-button-mini ItemPositionRight">Cancel</button>
         <p></p>
     </fieldset>
         
